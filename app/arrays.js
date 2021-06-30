@@ -4,6 +4,9 @@
 // output: ['is', 'a', 'split', 'sentence.', 'This']
 
 function rearranger(arr) {
+    let pushed = arr.shift()
+    arr.push(pushed)
+    return arr
 }
 
 
@@ -16,6 +19,22 @@ function rearranger(arr) {
 // output: 42
 
 function largestNum(arr) {
+    console.log('array log', arr)
+    let result = Math.max.apply(null, arr);
+    let dupes = 0
+    for (i = 0; i < arr.length; i++) {
+        if (result == arr[i]) {
+            dupes++
+        }
+    }
+    if (dupes > 1) {
+        let obj = {
+            [result]: dupes
+        }
+        return obj
+    }
+    console.log('dupes', dupes)
+    return result
 }
 
 
@@ -28,6 +47,8 @@ function largestNum(arr) {
 // output: [16, 8, 4, 28]
 
 function elemsTimesLength(arr) {
+    return arr.map(x => x * arr.length)
+
 }
 
 
@@ -63,7 +84,12 @@ let flights = [{
 
 function flightCost(destination, firstClass) {
     //***hint: use the find method***
-
+    destination = destination.toUpperCase()
+    let chosenDest = flights.find(flight => flight.to == destination)
+    if (firstClass) {
+        return chosenDest.prices.firstClass
+    }
+    return chosenDest.prices.standard
 }
 
 
@@ -84,6 +110,10 @@ let staff = [{ id: 1, name: 'Jon' }, { id: 2, name: 'Yuli' }, { id: 21, name: 'P
 { id: 881, name: 'Paul' }, { id: 0, name: 'Jon' }, { id: 999, name: 'Timma' }]
 
 function findById(id) {
+    let staffObj = staff.find(x => x.id == id)
+    if (staffObj != undefined) {
+        return staffObj
+    } return { error: "No user with that id" }
 
 }
 
@@ -110,5 +140,11 @@ let theBand = {
     }]
 }
 
-function bandMemberDetails(name) {
+function bandMemberDetails(findName) {
+    let bandMembers = theBand.members
+    let memberObj = bandMembers.find(x => x.name == findName)
+    return `${memberObj.name} is in the band and plays the ${memberObj.instrument}`
+
+
+
 }
